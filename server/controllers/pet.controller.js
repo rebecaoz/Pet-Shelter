@@ -24,3 +24,9 @@ module.exports.deleteAnExistingPet = (req, res) => {
       .catch(err => res.json({ message: "Something went wrong", error: err }));
 };
 
+module.exports.findOnePet = (req, res) => {
+    Pet.findOne({ _id: req.params.id })
+        .then(result => res.json({ result: result }))
+        .catch(err => res.json({message: "Something went wrong", error:err}));
+}
+

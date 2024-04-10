@@ -2,7 +2,15 @@ import "./ListPets.style.css"
 import React from 'react';
 import {Link} from 'react-router-dom';
 
+import { useNavigate} from "react-router-dom";
+
+
 const ListPets = (props) => {
+
+
+    const navigate = useNavigate();
+
+
     return <div>
         <div>
             <h2 className="text-center">These pets are looking for a good home</h2>
@@ -30,10 +38,10 @@ const ListPets = (props) => {
                             {pet.type}
                         </td>
                         <td>
-                            <Link to="/details" className=""> Details</Link>
+                            <button onClick={()=>navigate("/details/"+pet._id)}>Details</button>
                         </td>
                         <td>
-                            <Link to="/edit" className=""> Edit</Link>
+                        <button>Edit</button>
                         </td>
                     </tr>
                     }
