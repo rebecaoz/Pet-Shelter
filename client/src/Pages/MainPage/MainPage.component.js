@@ -1,5 +1,4 @@
 import "./MainPage.style.css"
-import AddPet from "../../components/AddPet/AddPet.component"
 import ListPets from "../../components/ListPets/ListPets.component";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -16,7 +15,7 @@ const MainPage = (props) => {
             .then((response) => {
                 setPets(response.data.pets)
                 
-                console.log(response.data)
+                //console.log(response.data)
             })
             .catch((error) => {
                 console.log(error)
