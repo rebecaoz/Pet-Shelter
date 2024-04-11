@@ -41,7 +41,7 @@ const ListPets = (props) => {
                             <button onClick={()=>navigate("/details/"+pet._id)}>Details</button>
                         </td>
                         <td>
-                        <button>Edit</button>
+                        <button onClick={()=>navigate("/update/"+pet._id)}>Edit</button>
                         </td>
                     </tr>
                     }

@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import MainPage from './Pages/MainPage/MainPage.component';
 import AddPet from './components/AddPet/AddPet.component';
 import Details from './Pages/DetailsPage/Details.component';
+import UpdatePet from './components/UpdatePet/UpdatePet.component';
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
                 <Route index={true} path="/" element={<MainPage />} />
                 <Route index={true} path="/new" element={<AddPet />} />
                 <Route index={true} path="/details/:id" element={<Details />} />
+                <Route index={true} path="/update/:id" element={<UpdatePet />} />
             </Routes>
         </BrowserRouter>
     </div>
