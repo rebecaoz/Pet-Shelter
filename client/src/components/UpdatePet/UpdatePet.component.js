@@ -5,18 +5,36 @@ import { useParams } from "react-router-dom";
 const UpdatePet = () =>{
 
     const params = useParams();
-    const [result, setResult] = useState([]);
+    //const [result, setResult] = useState([]);
     const [data, setData] = useState({})
+    //const [name, setName] = useState("");
+    //const [nameError, setNameError] = useState("");
 
     useEffect(()=>{
         axios.get(`http://localhost:8000/api/details/${params.id}/`)
              
-             .then( response => setResult(response.data.result) )
-           
+             .then( response => setData(response.data.result) )
+            
              .catch( err => console.log(err));
     },[params.id])
 
+   /*
+   const handleError = (e) =>{
+    if(e.target.name==='name') {
+        setName(e.target.value);
+        if(e.target.value.length < 1 ){
+            setNameError("Name is required!");
+        }else if(e.target.value.length < 3){
+            setNameError("Name must be 3 characters or longer!");
+        }
+        else {
+            setNameError('');
+        }
+    }
+   }*/
+   
     const handleChange = (event) => {
+        //console.log(data);
         setData({
             ...data,
             [event.target.name]: event.target.value
@@ -59,10 +77,10 @@ const UpdatePet = () =>{
                             className="ml-2" 
                             type="text" 
                             name="name" 
-                            value={result.name} 
+                            value={data.name} 
                             onChange={(handleChange)} 
-                            
                         />
+                        
                     </div>
                     <div>
                         <span>Type:</span>
@@ -70,8 +88,8 @@ const UpdatePet = () =>{
                             className="ml-2" 
                             type="text" 
                             name="type" 
-                            value={result.type} 
-                            //onChange={handleChange} 
+                            value={data.type} 
+                            onChange={handleChange} 
                         />
                     </div>
                     <div>
@@ -80,8 +98,8 @@ const UpdatePet = () =>{
                             className="ml-2" 
                             type="text" 
                             name="description" 
-                            value={result.description} 
-                            //onChange={handleChange} 
+                            value={data.description} 
+                            onChange={handleChange} 
                         />
                     </div>
                     <div>
@@ -90,8 +108,8 @@ const UpdatePet = () =>{
                             className="ml-2" 
                             type="text" 
                             name="skill1" 
-                            value={result.skill1} 
-                            //onChange={handleChange} 
+                            value={data.skill1} 
+                            onChange={handleChange} 
                         />
                     </div>
                     <div>
@@ -100,7 +118,7 @@ const UpdatePet = () =>{
                             className="ml-2" 
                             type="text" 
                             name="skill2" 
-                            value={result.skill2} 
+                            value={data.skill2} 
                             onChange={handleChange} 
                         />
                     </div>
@@ -110,7 +128,7 @@ const UpdatePet = () =>{
                             className="ml-2" 
                             type="text" 
                             name="skill3" 
-                            value={result.skill3} 
+                            value={data.skill3} 
                             onChange={handleChange} 
                         />
                     </div>
