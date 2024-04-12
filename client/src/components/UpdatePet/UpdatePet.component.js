@@ -8,7 +8,10 @@ const UpdatePet = () =>{
     //const [result, setResult] = useState([]);
     const [data, setData] = useState({})
     //const [name, setName] = useState("");
-    //const [nameError, setNameError] = useState("");
+    const [nameError, setNameError] = useState("");
+    const [typeError, setTypeError] = useState("");
+    const [descriptionError, setDescriptionError] = useState("");
+    const [active, setActive] = useState("");
 
     useEffect(()=>{
         axios.get(`http://localhost:8000/api/details/${params.id}/`)
@@ -18,20 +21,39 @@ const UpdatePet = () =>{
              .catch( err => console.log(err));
     },[params.id])
 
-   /*
+   
    const handleError = (e) =>{
-    if(e.target.name==='name') {
-        setName(e.target.value);
+    
+        //setName(e.target.value);
         if(e.target.value.length < 1 ){
-            setNameError("Name is required!");
+            if(e.target.name=='name'){
+                setNameError("Name is required!");
+            }else if(e.target.name=='type'){
+                setTypeError("Type is required!")
+            }else if(e.target.name=='description'){
+                setDescriptionError("Description is required")
+            }
+            setActive(true);
         }else if(e.target.value.length < 3){
-            setNameError("Name must be 3 characters or longer!");
+            if(e.target.name=='name'){
+                setNameError("Name must be 3 characters or longer!");
+            }else if(e.target.name=='type'){
+                setTypeError("Type must be 3 characters or longer!")
+            }else if(e.target.name=='description'){
+                setDescriptionError("Description must be 3 characters or longer!")
+            }
+            setActive(true);
         }
         else {
             setNameError('');
+            setTypeError('');
+            setDescriptionError('');
+            setActive(false);
         }
+           
     }
-   }*/
+
+   
    
     const handleChange = (event) => {
         //console.log(data);
@@ -63,6 +85,20 @@ const UpdatePet = () =>{
         
     }
 
+    const handleChangeAndError = (e) =>{
+        handleChange(e);
+        handleError(e);
+    }
+
+    const buttonIsActive = () =>{
+        
+        if(nameError || typeError || descriptionError){
+            setActive(false);
+        }else{
+            setActive(true);
+        }
+       
+    }
 
     return(
         <div>
@@ -78,9 +114,13 @@ const UpdatePet = () =>{
                             type="text" 
                             name="name" 
                             value={data.name} 
-                            onChange={(handleChange)} 
+                            onChange={handleChangeAndError} 
                         />
-                        
+                        {
+                            nameError ?
+                            <p style={{color:'red'}}>{ nameError }</p> :
+                            ''
+                        }
                     </div>
                     <div>
                         <span>Type:</span>
@@ -89,8 +129,13 @@ const UpdatePet = () =>{
                             type="text" 
                             name="type" 
                             value={data.type} 
-                            onChange={handleChange} 
+                            onChange={handleChangeAndError} 
                         />
+                        {
+                            typeError ?
+                            <p style={{color:'red'}}>{ typeError }</p> :
+                            ''
+                        }
                     </div>
                     <div>
                         <span>Description:</span>
@@ -99,8 +144,13 @@ const UpdatePet = () =>{
                             type="text" 
                             name="description" 
                             value={data.description} 
-                            onChange={handleChange} 
+                            onChange={handleChangeAndError} 
                         />
+                        {
+                            descriptionError ?
+                            <p style={{color:'red'}}>{ descriptionError }</p> :
+                            ''
+                        }
                     </div>
                     <div>
                         <span>Skill 1:</span>
@@ -133,7 +183,8 @@ const UpdatePet = () =>{
                         />
                     </div>
                     <div>
-                        <button type="submit">Guardar</button>
+                        
+                        <button type="submit" disabled = {active}>Save</button>
                     </div>
                 </form>
             </div>
