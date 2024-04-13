@@ -1,17 +1,17 @@
 import { useState, useEffect } from "react";
 import axios from 'axios';
 import { useParams } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 
 const UpdatePet = () =>{
 
     const params = useParams();
-    //const [result, setResult] = useState([]);
     const [data, setData] = useState({})
-    //const [name, setName] = useState("");
     const [nameError, setNameError] = useState("");
     const [typeError, setTypeError] = useState("");
     const [descriptionError, setDescriptionError] = useState("");
     const [active, setActive] = useState("");
+    const navigate = useNavigate();
 
     useEffect(()=>{
         axios.get(`http://localhost:8000/api/details/${params.id}/`)
@@ -68,6 +68,8 @@ const UpdatePet = () =>{
         editPet(data)
         //console.log(data);
         setData({})
+        alert("Se guardó correctamente");
+        navigate("/")
     }
 
     const editPet = (data) => {
